@@ -26,6 +26,14 @@ public class DVDLogo extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		update();
+		ScreenUtils.clear(1, 0, 0, 1);
+		batch.begin();
+		batch.draw(img, x, y);
+		batch.end();
+	}
+
+	public void update() {
 		if(x <= 0 || x >= width - img.getWidth()) {
 			xSpeed = xSpeed * -1;
 		}
@@ -34,10 +42,6 @@ public class DVDLogo extends ApplicationAdapter {
 		}
 		x += xSpeed;
 		y += ySpeed;
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, x, y);
-		batch.end();
 	}
 
 	@Override
