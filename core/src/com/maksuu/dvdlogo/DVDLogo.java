@@ -8,67 +8,36 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class DVDLogo extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture pink;
-	Texture green;
-	Texture red;
-	Texture violet;
-	Texture mainTexture;
-	int x, y, xSpeed, ySpeed;
-	int height, width;
+	Texture whiteLogo;
+	public static int height, width;
+	Logo logo;
 
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
-		pink = new Texture("DVD_logo_pink.png");
-		green = new Texture("DVD_logo_green.png");
-		red = new Texture("DVD_logo_red.png");
-		violet = new Texture("DVD_logo_violet.png");
+		whiteLogo = new Texture("DVD_logo.png");
 		height = Gdx.graphics.getBackBufferHeight();
 		width = Gdx.graphics.getBackBufferWidth();
-		xSpeed = -3;
-		ySpeed = 3;
-		x = 0;
-		y = height - pink.getHeight();
-
-		mainTexture = pink;
+		logo = new Logo(0, height - whiteLogo.getHeight(), whiteLogo, batch);
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		update();
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
-		batch.draw(mainTexture, x, y);
+		logo.draw();
 		batch.end();
 	}
 
 	public void update() {
-		if(x <= 0) {
-			mainTexture = pink;
-			xSpeed = xSpeed * -1;
-		}
-		if(x >= width - pink.getWidth()) {
-			mainTexture = green;
-			xSpeed = xSpeed * -1;
-		}
-		if(y <= 0) {
-			mainTexture = violet;
-			ySpeed = ySpeed * -1;
-		}
-		if(y >= height - pink.getHeight()) {
-			mainTexture = red;
-			ySpeed = ySpeed * -1;
-		}
-		x += xSpeed;
-		y += ySpeed;
+		logo.update();
 	}
 
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
-		red.dispose();
-		pink.dispose();
-		violet.dispose();
-		green.dispose();
+		logo.dispose();
+		whiteLogo.dispose();
 	}
 }
